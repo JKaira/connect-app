@@ -1,0 +1,14 @@
+@import 'tc-styles';
+
+.ProjectTypeIndicator {
+  width : 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $tc-dark-blue-10;
+  color: $tc-dark-blue-90;
+  &.dn {
+
+  }
+}

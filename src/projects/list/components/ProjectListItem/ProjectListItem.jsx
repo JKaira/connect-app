@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import classNames from 'classnames'
+import ProjectTypeIndicator from './ProjectTypeIndicator'
 
 require('./ProjectListItem.scss')
 
@@ -24,6 +25,7 @@ const ProjectListItem = ({ project, headerOnly = false, shouldAnimate = false })
   if (!headerOnly) {
     projectDOM = (
       <div className={ projectStyles }>
+        <ProjectTypeIndicator type="dn" />
         <Link className="projectName" to={`/projects/${project.id}`}>{ project.name }</Link>
         <div className="projectCurrentPhase">{ currentPhase }</div>
         <div className="projectStartsOn">{ project.registrationStartDate }</div>
