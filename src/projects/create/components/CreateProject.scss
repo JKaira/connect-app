@@ -1,4 +1,4 @@
-@import 'tc-styles';
+@import 'tc-includes';
 
 .hide {
   display: none;
@@ -174,19 +174,19 @@
             width:135px;
             border: 1px solid $tc-gray-20;
             border-radius: 4px;
-            &:hover{
-              border: 1px solid $tc-dark-blue-70;
-            }
-            &.active{
+            &.active {
               background: $tc-dark-blue-10;
               border: 1px solid $tc-dark-blue-30;
             }
-            span.icon{
+            &:hover {
+              border: 1px solid $tc-dark-blue-70;
+            }
+            span.icon {
               display:block;
               height: 50px;
               margin:30px auto 20px auto;
             }
-            span.title{
+            span.title {
               display:block;
               margin-top: 20px;
               @include roboto-bold;
@@ -194,7 +194,7 @@
               font-size: 13px;
               text-align:center;
             }
-            small{
+            small {
               display:block;
               font-size: 11px;
               text-align:center;
@@ -247,20 +247,6 @@
         .wearable-devices {
           flex-basis: 38%;
         }
-      }
-    }
-    .app-type {
-      margin: 0px auto;
-      display: flex;
-      justify-content: center;
-
-      align-items: center;
-      .radio-group-label {
-        width: auto;
-        font-weight: bold;
-      }
-      .radio-group-options {
-        justify-content: center;
       }
     }
     .section-divider {

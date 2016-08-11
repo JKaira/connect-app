@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { clearLoadedProject } from '../../actions/project'
 import DevicesComponent from './Devices'
-import { Form, SubmitButton, TextInput, RadioGroupInput, TextareaInput, SliderRadioGroupInput, Validations } from 'appirio-tech-react-components'
+import { Form, SubmitButton, TextInput, TextareaInput, SliderRadioGroupInput, Validations } from 'appirio-tech-react-components'
 
 require('./CreateProject.scss')
 
