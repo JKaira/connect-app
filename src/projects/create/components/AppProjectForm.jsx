@@ -7,22 +7,6 @@ import { Form, SubmitButton, TextInput, RadioGroupInput, TextareaInput, SliderRa
 
 require('./CreateProject.scss')
 
-const appTypeOptions = [
-  {
-    value: 'ios',
-    label: 'iOS'
-  }, {
-    value: 'android',
-    label: 'Android'
-  }, {
-    value: 'web',
-    label: 'Web'
-  }, {
-    value: 'hybrid',
-    label: 'Hybrid'
-  }
-]
-
 const projectTypes = [
   {
     value: 'visual_design',
@@ -46,7 +30,6 @@ const projectTypes = [
 const initalFormValue = {
   newProject: {
     details: {
-      appType: 'ios',
       devices: ['phone'],
       utm: { code: ''}
     },
@@ -92,13 +75,6 @@ class AppProjectForm extends Component {
           name="newProject.details.devices"
         />
 
-        <RadioGroupInput
-          name="newProject.details.appType"
-          label="App Type"
-          disabled={false}
-          wrapperClass="app-type"
-          options={appTypeOptions}
-        />
         <div className="section-divider"></div>
         <div className="project-info">
           <h2>Project info</h2>

@@ -69,8 +69,7 @@ export const newProject = modelReducer('newProject', {
   type: 'visual_design',
   details: {
     version: 'v2',
-    devices: ['phone'],
-    appType: 'ios'
+    devices: ['phone']
   }
 })
 
