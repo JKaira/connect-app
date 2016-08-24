@@ -1,7 +1,8 @@
 import _ from 'lodash'
 
 import React, { Component, PropTypes } from 'react'
-import { ROLE_TOPCODER_MANAGER, ROLE_ADMINISTRATOR } from '../../../config/constants'
+import { Tabs, Tab } from 'appirio-tech-react-components'
+import { ROLE_MANAGER, ROLE_ADMINISTRATOR } from '../../../config/constants'
 import AppProjectForm from './AppProjectForm'
 import GenericProjectForm from './GenericProjectForm'
 import { connect } from 'react-redux'
@@ -37,36 +38,32 @@ class CreateView extends Component {
     this.props.currentTab = val
   }
 
-  renderTabs() {
+  renderWithTabs() {
     return (
-      <div className="tabs">
-        <ul>
-          <li className="active"><a href="#">App Project</a></li>
-          <li><a href="#">Work Project</a></li>
-        </ul>
-      </div>
+      <Tabs defaultActiveKey={1}>
+        <Tab eventKey={1} title="App Project">
+          <AppProjectForm submitHandler={this.createProject} />
+        </Tab>
+        <Tab eventKey={2} title="Work Project">
+          <GenericProjectForm submitHandler={this.createProject} />
+        </Tab>
+      </Tabs>
     )
   }
 
   render() {
-    let tabs = null
-    let form = null
-    if (_.indexOf(this.props.userRoles, ROLE_TOPCODER_MANAGER) > -1 ||
+    let content = null
+    if (_.indexOf(this.props.userRoles, ROLE_MANAGER) > -1 ||
         _.indexOf(this.props.userRoles, ROLE_ADMINISTRATOR) > -1 ) {
-      tabs = this.renderTabs()
-      // Todo select based on Tab
-      form = <AppProjectForm submitHandler={this.createProject}/>
+      content = this.renderWithTabs()
     } else {
-      // form = <WorkProjectForm submitHandler={this.createProject}/>
-      tabs = this.renderTabs()
-      form = <GenericProjectForm onSubmit={this.createProject} />
+      content = <AppProjectForm submitHandler={this.createProject}/>
     }
     return (
       <section className="content">
         <div className="container">
           <a href="#" className="btn-close"></a>
-          {tabs}
-          {form}
+          {content}
         </div>
       </section>
     )
@@ -79,11 +76,11 @@ CreateView.propTypes = {
 }
 
 CreateView.defaultProps = {
-  userRoles: ['manager'],
-  currentTab: 0
+  currentTab: 1
 }
 
-const mapStateToProps = ({projectState }) => ({
+const mapStateToProps = ({projectState, loadUser }) => ({
+  userRoles: loadUser.user.roles,
   isLoading: projectState.isLoading,
   project: projectState.project
 })

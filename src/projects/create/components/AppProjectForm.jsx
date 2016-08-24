@@ -3,9 +3,26 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { clearLoadedProject } from '../../actions/project'
 import DevicesComponent from './Devices'
-import { Form, SubmitButton, TextInput, TextareaInput, SliderRadioGroupInput, Validations } from 'appirio-tech-react-components'
+import { Formsy, TCFormFields } from 'appirio-tech-react-components'
+import _ from 'lodash'
 
 require('./CreateProject.scss')
+
+const appTypeOptions = [
+  {
+    value: 'ios',
+    label: 'iOS'
+  }, {
+    value: 'android',
+    label: 'Android'
+  }, {
+    value: 'web',
+    label: 'Web'
+  }, {
+    value: 'hybrid',
+    label: 'Hybrid'
+  }
+]
 
 const projectTypes = [
   {
@@ -26,40 +43,44 @@ const projectTypes = [
   }
 ]
 
-
-const initalFormValue = {
-  newProject: {
-    details: {
-      devices: ['phone'],
-      utm: { code: ''}
-    },
-    type: 'visual_prototype'
-  }
-}
-
 class AppProjectForm extends Component {
+
   constructor(props) {
     super(props)
+    this.enableButton = this.enableButton.bind(this)
+    this.disableButton = this.disableButton.bind(this)
   }
 
   componentWillMount() {
     this.props.clearLoadedProject()
+    this.setState({
+      canSubmit: false,
+      newProject: {
+        details: {
+          appType: 'ios',
+          devices: ['phone'],
+          utm: { code: ''}
+        },
+        type: 'visual_prototype'
+      }
+    })
   }
 
-  // componentWillUpdate(nextProps) {
-  //   if (!nextProps.isLoading &&
-  //       nextProps.project.id) {
-  //     console.log('project created', nextProps.project)
-  //     this.props.router.push('/projects/' + nextProps.project.id )
-  //   }
-  // }
+  enableButton() {
+    this.setState(_.assign({}, this.state, {canSubmit: true}))
+  }
+
+  disableButton() {
+    this.setState(_.assign({}, this.state, {canSubmit: false}))
+  }
+
 
   render () {
     return (
-      <Form initialValue={initalFormValue} onSubmit={this.props.submitHandler}>
+      <Formsy.Form onValidSubmit={this.props.submitHandler} onValid={this.enableButton} onInvalid={this.disableButton}>
         <div className="what-you-like-to-do">
           <h2>What would you like to do?</h2>
-          <SliderRadioGroupInput
+          <TCFormFields.SliderRadioGroup
             name="newProject.type"
             label="na"
             min={0}
@@ -69,29 +90,35 @@ class AppProjectForm extends Component {
           />
         </div>
 
-        {/* .pick-target-devices */}
+        {/* .pick-target-devices  */}
 
         <DevicesComponent
           name="newProject.details.devices"
         />
 
+        <TCFormFields.RadioGroup
+          name="newProject.details.appType"
+          label="App Type"
+          disabled={false}
+          wrapperClass="app-type"
+          options={appTypeOptions}
+        />
         <div className="section-divider"></div>
         <div className="project-info">
           <h2>Project info</h2>
 
-          <TextInput
+          <TCFormFields.TextInput
             name="newProject.name"
             type="text"
-            validations={{
-              required: [Validations.isRequired, 'project name is required']
-            }}
+            validations="minLength:1" required
+            validationError="Project name is required"
             label="Project Name"
-            placeholder="My awesome project"
+            placeholder="enter project name"
             disabled={false}
             wrapperClass="row"
           />
 
-          <TextareaInput
+          <TCFormFields.Textarea
             name="newProject.description"
             label="Description"
             disabled={false}
@@ -99,7 +126,7 @@ class AppProjectForm extends Component {
             placeholder="Mobile app that solves my biggest problem"
           />
 
-          <TextInput
+          <TCFormFields.TextInput
             name="newProject.details.utm.code"
             label="Invite code (optional)"
             type="text"
@@ -111,12 +138,12 @@ class AppProjectForm extends Component {
         {/* .project-info */}
 
         <div className="button-area">
-          <SubmitButton className="tc-btn tc-btn-primary tc-btn-md">
+          <button className="tc-btn tc-btn-primary tc-btn-md" type="submit" disabled={!this.state.canSubmit}>
             Create Project
-          </SubmitButton>
+          </button>
         </div>
         {/* .project-info */}
-      </Form>
+      </Formsy.Form>
     )
   }
 }
@@ -125,12 +152,6 @@ AppProjectForm.propTypes = {
   submitHandler: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({ newProject, projectState }) => ({
-  newProject,
-  isLoading: projectState.isLoading,
-  project: projectState.project
-})
+const actionCreators = { clearLoadedProject }
 
-const actionCreators = { clearLoadedProject}
-
-export default connect(mapStateToProps, actionCreators)(AppProjectForm)
+export default connect(null, actionCreators)(AppProjectForm)

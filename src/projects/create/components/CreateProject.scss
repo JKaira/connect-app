@@ -1,52 +1,7 @@
-@import 'tc-includes';
+@import 'tc-styles';
 
 .hide {
   display: none;
-}
-
-.tabs {
-  width:240px;
-  list-style-type: none;
-  padding: 0;
-  margin: 0 auto 50px auto;
-  ul {
-    display: -webkit-flex;
-    display: flex;
-    width:240px;
-  }
-  li {
-    -webkit-flex: initial;
-    flex: initial;
-    width: 50%;
-    padding: 10px 0;
-    text-align: center;
-    background-color: $tc-gray-neutral-light;
-    @include roboto-medium;
-    font-size: 15px;
-    line-height:20px;
-    background: $tc-white;
-    border: 1px solid $tc-gray-30;
-    a{
-      color: $tc-gray-80;
-    }
-    &:hover {
-    }
-    &.active {
-      background-color: $tc-dark-blue-90;
-      border: 1px solid $tc-dark-blue-90;
-      a{
-        color: $tc-white;
-      }
-    }
-    &:first-child {
-      border-radius: 2px 0 0 2px;
-      border-right:none;
-    }
-    &:last-child {
-      border-radius: 0 2px 2px 0 ;
-      border-left:none;
-    }
-  }
 }
 
 .content {
@@ -174,19 +129,19 @@
             width:135px;
             border: 1px solid $tc-gray-20;
             border-radius: 4px;
-            &.active {
+            &:hover{
+              border: 1px solid $tc-dark-blue-70;
+            }
+            &.active{
               background: $tc-dark-blue-10;
               border: 1px solid $tc-dark-blue-30;
             }
-            &:hover {
-              border: 1px solid $tc-dark-blue-70;
-            }
-            span.icon {
+            span.icon{
               display:block;
               height: 50px;
               margin:30px auto 20px auto;
             }
-            span.title {
+            span.title{
               display:block;
               margin-top: 20px;
               @include roboto-bold;
@@ -194,7 +149,7 @@
               font-size: 13px;
               text-align:center;
             }
-            small {
+            small{
               display:block;
               font-size: 11px;
               text-align:center;
@@ -247,6 +202,24 @@
         .wearable-devices {
           flex-basis: 38%;
         }
+      }
+    }
+    .app-type {
+      margin: 0px auto;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid #DCDCE0;
+      width: 500px;
+      padding: 20px 0;
+      margin-bottom: 50px;
+
+      align-items: center;
+      .radio-group-label {
+        width: auto;
+        font-weight: bold;
+      }
+      .radio-group-options {
+        justify-content: center;
       }
     }
     .section-divider {
